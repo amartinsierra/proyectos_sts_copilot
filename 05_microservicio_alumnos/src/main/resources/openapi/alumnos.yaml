@@ -1,0 +1,145 @@
+openapi: 3.0.1
+info:
+  title: API de Alumnos
+  version: 1.0.0
+  description: API REST para la gestión de alumnos
+paths:
+  /alumnos:
+    post:
+      summary: Alta de alumno
+      tags: [Alumnos]
+      operationId: createAlumno
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Alumno'
+      responses:
+        '201':
+          description: Alumno creado correctamente
+        '400':
+          description: Datos inválidos
+
+    get:
+      summary: Listado de todos los alumnos
+      tags: [Alumnos]
+      operationId: getAllAlumnos
+      responses:
+        '200':
+          description: Lista de alumnos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alumno'
+
+  /alumnos/{dni}:
+    get:
+      summary: Buscar alumno por DNI
+      operationId: getAlumnoByDni
+      tags: [Alumnos]
+      parameters:
+        - name: dni
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Alumno encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alumno'
+        '404':
+          description: Alumno no encontrado
+
+    delete:
+      summary: Eliminar alumno por DNI
+      operationId: deleteAlumno
+      tags: [Alumnos]
+      parameters:
+        - name: dni
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Alumno eliminado
+        '404':
+          description: Alumno no encontrado
+
+  /cursos:
+    get:
+      summary: Listado de cursos
+      operationId: getCursos
+      tags: [Alumnos]
+      responses:
+        '200':
+          description: Lista de cursos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /alumnos/curso:
+    get:
+      summary: Listado de alumnos por curso
+      operationId: getAlumnosByCurso
+      tags: [Alumnos]
+      parameters:
+        - name: curso
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de alumnos del curso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alumno'
+
+components:
+  schemas:
+    Alumno:
+      type: object
+      required:
+        - dni
+        - nombre
+        - email
+        - curso
+      properties:
+        dni:
+          type: string
+          description: DNI del alumno
+          minLength: 1   # evita DNI vacío
+          example: "12345678A"
+
+        nombre:
+          type: string
+          example: "Juan Pérez"
+
+        email:
+          type: string
+          format: email
+          example: "juan@example.com"
+
+        curso:
+          type: string
+          example: "Spring Boot"
+
+        calificacion:
+          type: number
+          format: float
+          minimum: 0     # evita notas negativas
+          example: 7.5
+
