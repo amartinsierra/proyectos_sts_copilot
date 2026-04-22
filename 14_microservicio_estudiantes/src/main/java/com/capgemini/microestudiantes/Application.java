@@ -1,14 +1,9 @@
-package com.capgemini.microtypi;
+package com.capgemini.microestudiantes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(
-		scanBasePackages = {
-				"com.caixaba.microtypi.service",
-				"com.capgemini.microtypi.web"
-		}
-)
+@SpringBootApplication(scanBasePackages = {"com.caixaba.microestudiantes", "com.capgemini.microestudiantes"})
 public class Application {
 
 	public static void main(String[] args) {

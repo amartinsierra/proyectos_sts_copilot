@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  title: API de Alumnos
+  version: 1.0.0
+  description: API REST para la gestión de alumnos
+paths:
+  /estudiantes:
+    post:
+      summary: Alta de Estudiante
+      tags: [Estudiantes]
+      operationId: createEstudiante
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Estudiante'
+      responses:
+        '201':
+          description: Estudiante creado correctamente
+        '400':
+          description: Datos inválidos
+
+  /estudiantes/{min}/{max}:
+    get:
+      summary: Estudiantes por rango de notas
+      operationId: getEstudiantesByRangoNotas
+      tags: [Estudiantes]
+      parameters:
+        - name: min
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: max
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Estudiantes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Estudiante'
+components:
+  schemas:
+    Estudiante:
+      type: object
+      required:
+        - dni
+        - nombre
+        - email
+        - curso
+        - nota
+      properties:
+        dni:
+          type: string
+          description: DNI del estudiante
+          minLength: 1   # 🚨 evita DNI vacío
+          example: "12345678A"
+        nombre:
+          type: string
+          example: "Juan Pérez"
+        email:
+          type: string
+          format: email
+          example: "juan@example.com"
+        curso:
+          type: string
+          example: "Spring Boot"
+        nota:
+          type: number
+          format: float
+          minimum: 0     #  evita notas negativas
+          example: 7.5

@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(
 		scanBasePackages = {
 				"com.caixaba.microtypi.service",
-				"com.capgemini.microtypi.web"
+				"com.capgemini.microtypi.web",
+				"com.caixaba.microtypi.config"
 		}
 )
 public class Application {

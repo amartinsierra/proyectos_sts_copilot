@@ -51,7 +51,7 @@ public class AlumnosController implements com.capgemini.microalumnos.api.Alumnos
 		@Override
 		public ResponseEntity<Alumno> getAlumnoByDni(String dni) {
 			//devuelve un 200 con el alumno obtenido del servicio si existe, si no existe, devuelve un 404 indicando que el alumno no se ha encontrado
-			Alumno alumno = alumnosService.getAlumnoByDni(dni).orElse(null);
+			Alumno alumno = alumnosService.getAlumnoByDni(dni);
 			if (alumno != null) {
 				return ResponseEntity.ok(alumno);
 			} else {
