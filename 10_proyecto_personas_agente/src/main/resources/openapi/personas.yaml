@@ -1,0 +1,113 @@
+openapi: 3.0.1
+info:
+  title: API Personas
+  version: 1.0.0
+
+paths:
+  /personas:
+    get:
+      summary: Listado de personas
+      description: Devuelve una lista de todas las personas registradas en el sistema.
+      tags: [Personas]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Persona'
+    post:
+      summary: Alta de persona
+      description: Da de alta una nueva persona.
+      tags: [Personas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '409':
+          description: Conflict
+  /personas/{id}:
+    get:
+      summary: Obtener persona por ID
+      tags: [Personas]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+    delete:
+      summary: Elimina persona por su ID
+      tags: [Personas]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '404':
+          description: Not found
+  /personas/edades:
+    get:
+      summary: Listado de personas entre rango de edades
+      description: Devuelve una lista de todas las personas cuya edad esta comprendida entre dos valores recibidos como parámetros.
+      tags: [Personas]
+      parameters:
+        - name: min
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: max
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Persona'
+components:
+  schemas:
+    Persona:
+      type: object
+      required: [id, nombre,edad,email]
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        edad:
+          type: integer
+        email:
+          type: string

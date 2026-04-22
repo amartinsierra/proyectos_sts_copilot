@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: API de Alumnos
+  version: 1.0.0
+  description: API REST para la gestión de alumnos
+paths:
+  /posts:
+    get:
+      summary: Lista de posts
+      operationId: getPosts
+      tags: [Typi]
+      responses:
+        '200':
+          description: Posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+  /comments:
+    get:
+      summary: Comentarios de un post
+      operationId: getCommentsByPost
+      tags: [Typi]
+      parameters:
+        - name: postId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Comentarios de un post
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+components:
+  schemas:
+    Post:
+      type: object
+      required:
+        - userId
+        - id
+        - title
+        - body
+      properties:
+        userId:
+          type: number
+          description: Id usuario   
+          example: "1"
+        id:
+          type: number
+          example: "1"
+        title:
+          type: string
+          example: "bla"
+        body:
+          type: string
+          example: "bla bla bla"
+    Comment:
+      type: object
+      required:
+        - postId
+        - id
+        - name
+        - email
+        - body
+      properties:
+        postId:
+          type: number
+          description: Id post 
+          example: "1"
+        id:
+          type: number
+          example: "1"
+        name:
+          type: string
+          example: "bla"
+        email:
+          type: string
+          example: "bla@gmail.com"
+        body:
+          type: string
+          example: "bla bla bla"
