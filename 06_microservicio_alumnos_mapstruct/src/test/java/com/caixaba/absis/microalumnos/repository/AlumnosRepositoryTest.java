@@ -13,12 +13,9 @@ import com.caixaba.absis.microalumnos.entity.AlumnoEntity;
 @ContextConfiguration(classes = {com.capgemini.microalumnos.Application.class})
 @DataJpaTest
 public class AlumnosRepositoryTest {
-	
+	@Autowired
 	AlumnosRepository alumnosRepository;
-	//Inyecta la variable alumnosRepository por constructor
-	public AlumnosRepositoryTest(AlumnosRepository alumnosRepository) {
-		this.alumnosRepository = alumnosRepository;
-	}
+	
 	
 	//Crea un test para el método findByCurso, que inserte un alumno con curso "Matematicas" y luego busque por ese curso y verifique que el alumno encontrado es el mismo que se insertó
 	//Crea un test para el método findAllCursos, que inserte varios alumnos con cursos diferentes y luego busque todos los cursos y verifique que se han encontrado todos los cursos sin duplicados
